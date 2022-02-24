@@ -1,0 +1,25 @@
+{
+  "name": "firebase9",
+  "version": "1.0.0",
+  "description": "Deep dive into firebase 9",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachyDev/Firebase9.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZachyDev/Firebase9/issues"
+  },
+  "homepage": "https://github.com/ZachyDev/Firebase9#readme",
+  "devDependencies": {
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
