@@ -1,5 +1,4 @@
 // Firebase functions
-
 import { initializeApp } from 'firebase/app';
 
 import {
@@ -10,7 +9,8 @@ import {
 
 // firebase auth function
 import {
-    getAuth
+    getAuth,
+    createUserWithEmailAndPassword
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -41,3 +41,24 @@ getDocs(colRef)
         })
     })
     .catch(err => alert(err.message))
+
+// auth function
+const auth = getAuth();
+
+// get the form
+const signupForm = document.querySelector('.signupForm');
+// attach submit event listener
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // get the form fields
+    let email = signupForm.email.value;
+    let password = signupForm.password.value;
+
+    // call createUserWithEmail function
+    createUserWithEmailAndPassword(auth,email,password)
+        .then(cred => {
+            console.log(cred.user);
+        })
+        .catch(err => console.log(err.message));
+})
