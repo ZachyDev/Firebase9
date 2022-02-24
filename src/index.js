@@ -8,6 +8,11 @@ import {
     getDocs
 } from 'firebase/firestore';
 
+// firebase auth function
+import {
+    getAuth
+} from 'firebase/auth';
+
 const firebaseConfig = {
     apiKey: "AIzaSyDgFT_a4AFYV17_yeMlwQOEZZGJ71Rw2Gk",
     authDomain: "fir-9-do-6b87f.firebaseapp.com",
@@ -35,3 +40,4 @@ getDocs(colRef)
             console.log(docId)
         })
     })
+    .catch(err => alert(err.message))
