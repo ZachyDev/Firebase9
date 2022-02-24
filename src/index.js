@@ -1,14 +1,13 @@
-// import firebase library
+// Firebase functions
+
 import { initializeApp } from 'firebase/app';
 
-// import Firestore functions
-import { 
-    getFirestore,
+import {
+    getFirestore, 
     collection,
-    getDocs,
+    getDocs
 } from 'firebase/firestore';
 
-// projwct config
 const firebaseConfig = {
     apiKey: "AIzaSyDgFT_a4AFYV17_yeMlwQOEZZGJ71Rw2Gk",
     authDomain: "fir-9-do-6b87f.firebaseapp.com",
@@ -18,22 +17,21 @@ const firebaseConfig = {
     appId: "1:926747255617:web:8870b670471dd9fa26b7c0"
 };
 
-// connect to Firebase back end
+// initializing firebase application
 initializeApp(firebaseConfig);
 
-// initialize services
+// create a reference to db
 const db = getFirestore();
 
-// collection ref
+// create a ref to the collection
 const colRef = collection(db, 'students');
 
-// get documents
+// get docs function
 getDocs(colRef)
     .then(snapshot => {
         snapshot.forEach(doc => {
-            let students = doc;
-            let docId = students.id;
-            console.log(students.data());
+            let docId = doc.id;
+            console.log(doc.data())
             console.log(docId)
         })
     })
