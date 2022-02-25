@@ -10,7 +10,9 @@ import {
 // firebase auth function
 import {
     getAuth,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -61,4 +63,33 @@ signupForm.addEventListener('submit', (e) => {
             console.log(cred.user);
         })
         .catch(err => console.log(err.message));
+})
+
+// login user
+const loginForm = document.querySelector('.loginForm');
+
+
+loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // get the form fields
+    let email = loginForm.email.value;
+    let password = loginForm.password.value;
+
+    signInWithEmailAndPassword(auth,email,password)
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(err => console.log(err.message))
+
+})
+// logout button
+const logout = document.getElementById('logout');
+
+logout.addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            console.log('signed out')
+        })
+        .catch(err => console.log(err.message))
 })
