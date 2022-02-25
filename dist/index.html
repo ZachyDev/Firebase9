@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,7 @@
     <title>Getting started with Firebase 9</title>
 </head>
 <body>
+    
     <h1>Getting Started with Firebase 9</h1>
     
     <form class="signupForm">
@@ -15,7 +16,19 @@
         <label for="password">Password</label>
         <input type="password" name="password">
         <input type="submit" value="Sign Up">
+    </form><br>
+
+    <form class="loginForm">
+        <label for="email">Email</label>
+        <input type="text" name="email">
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <input type="submit" value="Login">
     </form>
+    <button id="logout">Logout</button>
+    <button id="googleBtn">Sign in with Google</button>
+
+    
 
     <script src="../dist/bundle.js"></script>
 </body>

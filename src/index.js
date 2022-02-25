@@ -10,7 +10,12 @@ import {
 // firebase auth function
 import {
     getAuth,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -36,8 +41,8 @@ getDocs(colRef)
     .then(snapshot => {
         snapshot.forEach(doc => {
             let docId = doc.id;
-            console.log(doc.data())
-            console.log(docId)
+            // console.log(doc.data())
+            // console.log(docId)
         })
     })
     .catch(err => alert(err.message))
@@ -58,7 +63,63 @@ signupForm.addEventListener('submit', (e) => {
     // call createUserWithEmail function
     createUserWithEmailAndPassword(auth,email,password)
         .then(cred => {
-            console.log(cred.user);
+            // console.log(cred.user);
         })
         .catch(err => console.log(err.message));
+})
+
+// login user
+const loginForm = document.querySelector('.loginForm');
+
+
+loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // get the form fields
+    let email = loginForm.email.value;
+    let password = loginForm.password.value;
+
+    signInWithEmailAndPassword(auth,email,password)
+        .then(() => {
+            // check the auth status
+            onAuthStateChanged(auth, user => {
+                if ( user.accessToken !== null) {
+                    window.location.assign('../dist/home.html');
+                }
+                else {
+                    window.location.assign('../dist/index.html');
+                }
+            })
+        })
+        .catch(err => console.log(err.message))
+
+})
+// logout button
+const logout = document.getElementById('logout');
+
+logout.addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            console.log('signed out')
+        })
+        .catch(err => console.log(err.message))
+})
+
+// checks the auth status
+onAuthStateChanged(auth, user => {
+    console.log('stated changed:', user);
+})
+
+// sign in with Google
+const googleBtn = document.querySelector('#googleBtn');
+
+googleBtn.addEventListener('click', e => {
+    e.preventDefault();
+    let authProvider = new GoogleAuthProvider();
+
+    signInWithPopup(auth,authProvider)  
+        .then(() => {
+            console.log('login success')
+        })
+        .catch(err => console.log(err.message))
 })
