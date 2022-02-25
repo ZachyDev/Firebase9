@@ -12,7 +12,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -38,8 +39,8 @@ getDocs(colRef)
     .then(snapshot => {
         snapshot.forEach(doc => {
             let docId = doc.id;
-            console.log(doc.data())
-            console.log(docId)
+            // console.log(doc.data())
+            // console.log(docId)
         })
     })
     .catch(err => alert(err.message))
@@ -60,7 +61,7 @@ signupForm.addEventListener('submit', (e) => {
     // call createUserWithEmail function
     createUserWithEmailAndPassword(auth,email,password)
         .then(cred => {
-            console.log(cred.user);
+            // console.log(cred.user);
         })
         .catch(err => console.log(err.message));
 })
@@ -77,8 +78,16 @@ loginForm.addEventListener('submit', e => {
     let password = loginForm.password.value;
 
     signInWithEmailAndPassword(auth,email,password)
-        .then(result => {
-            console.log(result.user);
+        .then(() => {
+            // check the auth status
+            onAuthStateChanged(auth, user => {
+                if ( user.accessToken !== null) {
+                    window.location.assign('../dist/home.html');
+                }
+                else {
+                    window.location.assign('../dist/index.html');
+                }
+            })
         })
         .catch(err => console.log(err.message))
 
@@ -92,4 +101,9 @@ logout.addEventListener('click', () => {
             console.log('signed out')
         })
         .catch(err => console.log(err.message))
+})
+
+// checks the auth status
+onAuthStateChanged(auth, user => {
+    console.log('stated changed:', user);
 })
