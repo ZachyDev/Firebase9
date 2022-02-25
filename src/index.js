@@ -13,7 +13,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -106,4 +108,18 @@ logout.addEventListener('click', () => {
 // checks the auth status
 onAuthStateChanged(auth, user => {
     console.log('stated changed:', user);
+})
+
+// sign in with Google
+const googleBtn = document.querySelector('#googleBtn');
+
+googleBtn.addEventListener('click', e => {
+    e.preventDefault();
+    let authProvider = new GoogleAuthProvider();
+
+    signInWithPopup(auth,authProvider)  
+        .then(() => {
+            console.log('login success')
+        })
+        .catch(err => console.log(err.message))
 })
